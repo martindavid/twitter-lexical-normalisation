@@ -1,0 +1,103 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ANY	../automata.py	/^    ANY = object()$/;"	kind:variable	line:5
+DFA	../automata.py	/^class DFA(object):$/;"	kind:class	line:72
+DICTS	../proj1.py	/^DICTS = [line.strip() for line in open('data\/dict.txt', 'r')]$/;"	kind:variable	line:18
+DICTS	../proj1_distance.py	/^DICTS = [line.strip() for line in open(DICT_PATH, 'r')]$/;"	kind:variable	line:62
+DICTS	../proj1_fuzzy.py	/^DICTS = [line.strip() for line in open(DICT_PATH, 'r')]$/;"	kind:variable	line:8
+DICT_PATH	../proj1-ngram.py	/^DICT_PATH = 'data\/dict.txt'$/;"	kind:variable	line:6
+DICT_PATH	../proj1_distance.py	/^DICT_PATH = 'data\/dict.txt'$/;"	kind:variable	line:59
+DICT_PATH	../proj1_fuzzy.py	/^DICT_PATH = 'data\/dict.txt'$/;"	kind:variable	line:4
+EPSILON	../automata.py	/^    EPSILON = object()$/;"	kind:variable	line:4
+G	../proj1-ngram.py	/^G = ngram.NGram(dict_list)$/;"	kind:variable	line:11
+LABELLED_TOKEN_PATH	../proj1-ngram.py	/^LABELLED_TOKEN_PATH = 'data\/labelled-tokens.txt'$/;"	kind:variable	line:7
+LABELLED_TOKEN_PATH	../proj1_distance.py	/^LABELLED_TOKEN_PATH = 'data\/labelled-tokens.txt'$/;"	kind:variable	line:60
+LABELLED_TOKEN_PATH	../proj1_fuzzy.py	/^LABELLED_TOKEN_PATH = 'data\/labelled-tokens.txt'$/;"	kind:variable	line:5
+Matcher	../matcher.py	/^class Matcher(object):$/;"	kind:class	line:3
+Matcher	../proj1.py	/^class Matcher(object):$/;"	kind:class	line:4
+NFA	../automata.py	/^class NFA(object):$/;"	kind:class	line:3
+NWORDS	../spell_check.py	/^NWORDS = train(words(open('data\/dict.txt').read()))$/;"	kind:variable	line:14
+RESULTS	../proj1_fuzzy.py	/^RESULTS = []$/;"	kind:variable	line:7
+TOKENS	../proj1_fuzzy.py	/^TOKENS = (line.strip() for line in open(LABELLED_TOKEN_PATH, 'r'))$/;"	kind:variable	line:9
+__call__	../matcher.py	/^    def __call__(self, w):$/;"	kind:member	line:8
+__call__	../proj1.py	/^    def __call__(self, w):$/;"	kind:member	line:9
+__init__	../automata.py	/^    def __init__(self, start_state):$/;"	kind:member	line:7
+__init__	../automata.py	/^    def __init__(self, start_state):$/;"	kind:member	line:74
+__init__	../matcher.py	/^    def __init__(self, l):$/;"	kind:member	line:4
+__init__	../proj1.py	/^    def __init__(self, l):$/;"	kind:member	line:5
+__init__.py	../__init__.py	1;"	kind:file	line:1
+_expand	../automata.py	/^    def _expand(self, states):$/;"	kind:member	line:25
+add_final_state	../automata.py	/^    def add_final_state(self, state):$/;"	kind:member	line:19
+add_final_state	../automata.py	/^    def add_final_state(self, state):$/;"	kind:member	line:86
+add_transition	../automata.py	/^    def add_transition(self, src, input, dest):$/;"	kind:member	line:16
+add_transition	../automata.py	/^    def add_transition(self, src, input, dest):$/;"	kind:member	line:80
+automata	../proj1.py	/^import automata$/;"	kind:namespace	line:2
+automata	../proj1_distance.py	/^import automata$/;"	kind:namespace	line:5
+automata.py	../automata.py	1;"	kind:file	line:1
+best_score	../proj1_fuzzy.py	/^                best_score = score$/;"	kind:variable	line:24
+best_score	../proj1_fuzzy.py	/^        best_score = 0$/;"	kind:variable	line:19
+best_string	../proj1_fuzzy.py	/^                best_string = word$/;"	kind:variable	line:25
+best_string	../proj1_fuzzy.py	/^        best_string = ""$/;"	kind:variable	line:20
+bisect	../automata.py	/^import bisect$/;"	kind:namespace	line:1
+bisect	../matcher.py	/^import bisect$/;"	kind:namespace	line:1
+bisect	../proj1.py	/^import bisect$/;"	kind:namespace	line:1
+canonical	../proj1_fuzzy.py	/^    canonical = split_token[2].strip()$/;"	kind:variable	line:16
+code	../proj1_fuzzy.py	/^    code = split_token[1]$/;"	kind:variable	line:15
+code	../spell_check.py	/^        code = split_token[1]$/;"	kind:variable	line:40
+collections	../spell_check.py	/^import re, collections$/;"	kind:namespace	line:1
+correct	../spell_check.py	/^def correct(word):$/;"	kind:function	line:31
+dict_list	../proj1-ngram.py	/^dict_list = [line.strip() for line in open(DICT_PATH, 'r')]$/;"	kind:variable	line:10
+dump_to	../proj1_distance.py	/^def dump_to(data, file_name):$/;"	kind:function	line:54
+edits1	../spell_check.py	/^def edits1(word):$/;"	kind:function	line:16
+find_all_matches	../automata.py	/^def find_all_matches(word, k, lookup_func):$/;"	kind:function	line:162
+find_match_damerau_levenshtein	../proj1_distance.py	/^def find_match_damerau_levenshtein(token, dicts):$/;"	kind:function	line:22
+find_match_jaro	../proj1_distance.py	/^def find_match_jaro(token, dicts):$/;"	kind:function	line:37
+find_match_levenshtein	../proj1_distance.py	/^def find_match_levenshtein(token, dicts):$/;"	kind:function	line:7
+find_next_edge	../automata.py	/^    def find_next_edge(self, s, x):$/;"	kind:member	line:126
+fuzz	../proj1_fuzzy.py	/^from fuzzywuzzy import fuzz, process$/;"	kind:namespace	line:2
+get_inputs	../automata.py	/^    def get_inputs(self, states):$/;"	kind:member	line:43
+is_final	../automata.py	/^    def is_final(self, state):$/;"	kind:member	line:89
+is_final	../automata.py	/^    def is_final(self, states):$/;"	kind:member	line:22
+jellyfish	../proj1_distance.py	/^import jellyfish$/;"	kind:namespace	line:2
+json	../proj1_distance.py	/^import json$/;"	kind:namespace	line:4
+known	../spell_check.py	/^def known(words):$/;"	kind:function	line:28
+known_edits2	../spell_check.py	/^def known_edits2(word):$/;"	kind:function	line:25
+levenshtein_automata	../automata.py	/^def levenshtein_automata(term, k):$/;"	kind:function	line:141
+m	../proj1.py	/^m = Matcher(DICTS)$/;"	kind:variable	line:19
+matcher.py	../matcher.py	1;"	kind:file	line:1
+next_state	../automata.py	/^    def next_state(self, src, input):$/;"	kind:member	line:92
+next_state	../automata.py	/^    def next_state(self, states, input):$/;"	kind:member	line:35
+next_valid_string	../automata.py	/^    def next_valid_string(self, input):$/;"	kind:member	line:96
+ngram	../proj1-ngram.py	/^import ngram$/;"	kind:namespace	line:2
+pprint	../proj1-ngram.py	/^import pprint$/;"	kind:namespace	line:1
+print_function	../proj1_distance.py	/^from __future__ import print_function$/;"	kind:namespace	line:1
+print_function	../proj1_fuzzy.py	/^from __future__ import print_function$/;"	kind:namespace	line:1
+process	../proj1_fuzzy.py	/^from fuzzywuzzy import fuzz, process$/;"	kind:namespace	line:2
+proj1-ngram.py	../proj1-ngram.py	1;"	kind:file	line:1
+proj1.py	../proj1.py	1;"	kind:file	line:1
+proj1_distance.py	../proj1_distance.py	1;"	kind:file	line:1
+proj1_fuzzy.py	../proj1_fuzzy.py	1;"	kind:file	line:1
+re	../spell_check.py	/^import re, collections$/;"	kind:namespace	line:1
+result	../proj1_fuzzy.py	/^        result = {$/;"	kind:variable	line:30
+results	../proj1-ngram.py	/^results = []$/;"	kind:variable	line:9
+results	../proj1_distance.py	/^results = []$/;"	kind:variable	line:58
+score	../proj1_fuzzy.py	/^            score = fuzz.ratio(search_token, word)$/;"	kind:variable	line:22
+search_token	../proj1_fuzzy.py	/^    search_token = split_token[0].strip()$/;"	kind:variable	line:14
+set_default_transition	../automata.py	/^    def set_default_transition(self, src, dest):$/;"	kind:member	line:83
+soundex	../proj1-ngram.py	/^def soundex(name, len=4):$/;"	kind:function	line:18
+spell_check.py	../spell_check.py	1;"	kind:file	line:1
+split_token	../proj1-ngram.py	/^        split_token = token.split('\\t')$/;"	kind:variable	line:15
+split_token	../proj1_fuzzy.py	/^    split_token = token.split('\\t')$/;"	kind:variable	line:13
+split_token	../spell_check.py	/^        split_token = token.split('\\t')$/;"	kind:variable	line:38
+start_state	../automata.py	/^    def start_state(self):$/;"	kind:member	line:13
+start_time	../proj1_distance.py	/^start_time = time.time()$/;"	kind:variable	line:64
+time	../proj1_distance.py	/^import time$/;"	kind:namespace	line:3
+to_dfa	../automata.py	/^    def to_dfa(self):$/;"	kind:member	line:49
+token_word	../spell_check.py	/^        token_word = split_token[0]$/;"	kind:variable	line:39
+total_minutes	../proj1_distance.py	/^total_minutes = time.time() - start_time$/;"	kind:variable	line:91
+train	../spell_check.py	/^def train(features):$/;"	kind:function	line:8
+words	../spell_check.py	/^def words(text):$/;"	kind:function	line:3
