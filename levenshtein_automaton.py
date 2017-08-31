@@ -38,7 +38,7 @@ def dump_to(data, file_name):
         json.dump(data, fout)
 
 
-DICTS = [line.strip() for line in open('data/wlist_match2.txt', 'r')]
+DICTS = [line.strip() for line in open('data/words.txt', 'r')]
 m = Matcher(DICTS)
 results = []
 start_time = time.time()
