@@ -13,18 +13,18 @@ def main(args, loglevel):
 
     method = args.method
     filename = args.filename
+    dict_path = args.dictionary
 
-    DICT_PATH = 'data/words.txt'
     LABELLED_TOKEN_PATH = 'data/labelled-tokens.txt'
 
-    DICTS = [line.strip() for line in open(DICT_PATH, 'r')]
+    DICTS = [line.strip() for line in open(dict_path, 'r')]
 
     results = []
     start_time = time.time()
     with open(LABELLED_TOKEN_PATH, 'r') as tokens:
         count = 0
         for token in tokens:
-            if count > 400:
+            if count > 100:
                 break
 
             split_token = token.split('\t')
@@ -32,14 +32,15 @@ def main(args, loglevel):
             code = split_token[1]
             canonical = split_token[2].strip()
 
-
             engine = MatchEngine(DICTS)
 
-            if method == 1:
+            if method == "0": # levenshtein only
                 candidates, is_match, best_match = engine.find_match_levenshtein(token_word, canonical)
-            else:
-                candidates, is_match, best_match = engine.find_match_levenshtein_automaton(token_word, canonical)
- 
+            elif method == "1": # levenshtein + soundex method
+                candidates, is_match, best_match = engine.find_match_levenshtein_soundex(token_word, canonical)
+            else: # levenshtein + metaphone method
+                candidates, is_match, best_match = engine.find_match_levenshtein_metaphone(token_word, canonical)
+
             result = {
                 'token': token_word,
                 'candidates': candidates,
@@ -66,9 +67,16 @@ if __name__ == '__main__':
         fromfile_prefix_chars='@')
 
     PARSER.add_argument(
+        "-d",
+        "--dictionary",
+        help="Dictionary path",
+        required=True
+    )
+
+    PARSER.add_argument(
         "-m",
         "--method",
-        help="String matching algorithm method",
+        help="String matching algorithm method [0 - levenshtein, 1 - levenshtein + soundex, 2 - levenshtein + metaphone]",
         metavar="METHOD",
         required=True
     )
