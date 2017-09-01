@@ -1,9 +1,7 @@
 from __future__ import print_function
 import jellyfish
 import ngram
-import automata
 import bisect
-from matcher import Matcher
 
 class MatchEngine(object):
     def __init__(self, dicts):

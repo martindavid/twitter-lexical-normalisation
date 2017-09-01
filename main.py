@@ -24,9 +24,6 @@ def main(args, loglevel):
     with open(LABELLED_TOKEN_PATH, 'r') as tokens:
         count = 0
         for token in tokens:
-            if count > 100:
-                break
-
             split_token = token.split('\t')
             token_word = split_token[0].decode("utf-8").strip()
             code = split_token[1]
