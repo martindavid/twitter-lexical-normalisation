@@ -26,7 +26,7 @@ def main(args, loglevel):
         count = 0
         for token in tokens:
             split_token = token.split('\t')
-            token_word = split_token[0].decode("utf-8").strip()
+            token_word = unicode(split_token[0].strip())
             code = split_token[1]
             canonical = split_token[2].strip()
 
