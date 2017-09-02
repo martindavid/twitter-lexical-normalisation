@@ -1,3 +1,4 @@
+from __future__ import print_function
 import argparse
 import logging
 import json
@@ -5,9 +6,11 @@ import time
 import io
 from match_engine import MatchEngine
 
+
 def dump_to(data, file_name):
     with open(file_name, 'w') as fout:
         json.dump(data, fout)
+
 
 def main(args, loglevel):
     logging.basicConfig(format="%(levelname)s: %(message)s", level=loglevel)
@@ -16,47 +19,53 @@ def main(args, loglevel):
     filename = args.filename
     dict_path = args.dictionary
 
-    LABELLED_TOKEN_PATH = 'data/labelled-tokens.txt'
+    labelled_token_path = 'data/labelled-tokens.txt'
 
-    DICTS = [line.strip() for line in open(dict_path, 'r')]
+    dicts = [line.strip() for line in open(dict_path, 'r')]
 
     results = []
     start_time = time.time()
-    with io.open(LABELLED_TOKEN_PATH, 'r', encoding='ISO-8859-1') as tokens:
+    with io.open(labelled_token_path, 'r', encoding='ISO-8859-1') as tokens:
         count = 0
         for token in tokens:
-            split_token = token.split('\t')
-            token_word = unicode(split_token[0].strip())
-            code = split_token[1]
-            canonical = split_token[2].strip()
+            try:
+                split_token = token.split('\t')
+                token_word = unicode(split_token[0].strip())
+                canonical = split_token[2].strip()
 
-            engine = MatchEngine(DICTS)
+                engine = MatchEngine(dicts)
 
-            if method == "0": # levenshtein only
-                candidates, is_match, best_match = engine.find_match_levenshtein(token_word, canonical)
-            elif method == "1": # levenshtein + soundex method
-                candidates, is_match, best_match = engine.find_match_levenshtein_soundex(token_word, canonical)
-            else: # levenshtein + metaphone method
-                candidates, is_match, best_match = engine.find_match_levenshtein_metaphone(token_word, canonical)
+                if method == "0":  # levenshtein only
+                    candidates, is_match, best_match = engine.find_match_levenshtein(
+                        token_word, canonical)
+                elif method == "1":  # levenshtein + soundex method
+                    candidates, is_match, best_match = engine.find_match_levenshtein_soundex(
+                        token_word, canonical)
+                else:  # levenshtein + metaphone method
+                    candidates, is_match, best_match = engine.find_match_levenshtein_metaphone(
+                        token_word, canonical)
 
-            result = {
-                'token': token_word,
-                'candidates': candidates,
-                'canonical': canonical,
-                'is_correct': is_match,
-                'best_match': best_match
-            }
+                result = {
+                    'token': token_word,
+                    'candidates': candidates,
+                    'canonical': canonical,
+                    'is_correct': is_match,
+                    'best_match': best_match
+                }
 
-            results.append(result)
-            print(result)
+                results.append(result)
+                print(result)
+            except Exception:
+                continue
+
             count += 1
 
     dump_to(results, filename)
 
     total_minutes = time.time() - start_time
     minutes, seconds = divmod(total_minutes, 60)
-    print("\nTotal time used for execution is %02d minutes and %02d seconds" % (minutes, seconds))
-
+    print("\nTotal time used for execution is %02d minutes and %02d seconds" %
+          (minutes, seconds))
 
 
 if __name__ == '__main__':
@@ -102,5 +111,3 @@ if __name__ == '__main__':
         LOG_LEVEL = logging.INFO
 
     main(ARGS, LOG_LEVEL)
-
-
