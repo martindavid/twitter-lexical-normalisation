@@ -21,7 +21,7 @@ def main(args, loglevel):
 
     results = []
     start_time = time.time()
-    with open(LABELLED_TOKEN_PATH, 'r') as tokens:
+    with open(LABELLED_TOKEN_PATH, 'r', encoding='ISO-8859-1') as tokens:
         count = 0
         for token in tokens:
             split_token = token.split('\t')
