@@ -2,6 +2,7 @@ import argparse
 import logging
 import json
 import time
+import io
 from match_engine import MatchEngine
 
 def dump_to(data, file_name):
@@ -21,7 +22,7 @@ def main(args, loglevel):
 
     results = []
     start_time = time.time()
-    with open(LABELLED_TOKEN_PATH, 'r', encoding='ISO-8859-1') as tokens:
+    with io.open(LABELLED_TOKEN_PATH, 'r', encoding='ISO-8859-1') as tokens:
         count = 0
         for token in tokens:
             split_token = token.split('\t')
