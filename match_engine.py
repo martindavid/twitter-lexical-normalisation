@@ -2,6 +2,7 @@ from __future__ import print_function
 import jellyfish
 import ngram
 import bisect
+from pyxdameraulevenshtein import damerau_levenshtein_distance
 
 class MatchEngine(object):
     def __init__(self, dicts):
@@ -9,7 +10,7 @@ class MatchEngine(object):
 
     def find_match_levenshtein(self, token, canonical):
         candidates = []
-        best_score = 1
+        best_score = 2
         for word in self.dicts:
             score = jellyfish.levenshtein_distance(
                 token, word.decode("utf-8").lower())
@@ -38,7 +39,7 @@ class MatchEngine(object):
 
     def find_match_levenshtein_soundex(self, token, canonical):
         candidates = []
-        best_score = 1
+        best_score = 2
         for word in self.dicts:
             score = jellyfish.levenshtein_distance(
                 token, word.decode("utf-8").lower())
@@ -70,7 +71,7 @@ class MatchEngine(object):
 
     def find_match_levenshtein_metaphone(self, token, canonical):
         candidates = []
-        best_score = 0.75
+        best_score = 2
         for word in self.dicts:
             score = jellyfish.levenshtein_distance(
                 token, word.decode("utf-8").lower())

@@ -28,6 +28,8 @@ def main(args, loglevel):
     with io.open(labelled_token_path, 'r', encoding='ISO-8859-1') as tokens:
         count = 0
         for token in tokens:
+            if count > 800:
+                break
             try:
                 split_token = token.split('\t')
                 token_word = unicode(split_token[0].strip())
