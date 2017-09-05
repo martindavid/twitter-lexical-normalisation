@@ -28,7 +28,7 @@ def main(args, loglevel):
     with io.open(labelled_token_path, 'r', encoding='ISO-8859-1') as tokens:
         count = 0
         for token in tokens:
-            if count > 800:
+            if count > 1000:
                 break
             try:
                 split_token = token.split('\t')
@@ -39,13 +39,13 @@ def main(args, loglevel):
 
                 if code == 'OOV':
                     if method == "0":  # levenshtein only
-                        candidates, is_match, best_match = engine.find_match_levenshtein(
+                        candidates, is_match = engine.find_match_levenshtein(
                             token_word, canonical)
                     elif method == "1":  # levenshtein + soundex method
-                        candidates, is_match, best_match = engine.find_match_levenshtein_soundex(
+                        candidates, is_match = engine.find_match_levenshtein_soundex(
                             token_word, canonical)
                     else:  # levenshtein + metaphone method
-                        candidates, is_match, best_match = engine.find_match_levenshtein_metaphone(
+                        candidates, is_match  = engine.find_match_levenshtein_metaphone(
                             token_word, canonical)
 
                     result = {
@@ -53,7 +53,8 @@ def main(args, loglevel):
                         'candidates': candidates,
                         'canonical': canonical,
                         'is_correct': is_match,
-                        'best_match': best_match
+                        'code': code,
+                        'candidates_len': len(candidates)
                     }
 
                     results.append(result)
