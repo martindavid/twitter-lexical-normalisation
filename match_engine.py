@@ -2,7 +2,6 @@ from __future__ import print_function
 import jellyfish
 import ngram
 import bisect
-from pyxdameraulevenshtein import damerau_levenshtein_distance
 
 class MatchEngine(object):
     def __init__(self, dicts):

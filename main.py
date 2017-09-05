@@ -33,30 +33,31 @@ def main(args, loglevel):
             try:
                 split_token = token.split('\t')
                 token_word = unicode(split_token[0].strip())
+                code = split_token[1]
                 canonical = split_token[2].strip()
-
                 engine = MatchEngine(dicts)
 
-                if method == "0":  # levenshtein only
-                    candidates, is_match, best_match = engine.find_match_levenshtein(
-                        token_word, canonical)
-                elif method == "1":  # levenshtein + soundex method
-                    candidates, is_match, best_match = engine.find_match_levenshtein_soundex(
-                        token_word, canonical)
-                else:  # levenshtein + metaphone method
-                    candidates, is_match, best_match = engine.find_match_levenshtein_metaphone(
-                        token_word, canonical)
+                if code == 'OOV':
+                    if method == "0":  # levenshtein only
+                        candidates, is_match, best_match = engine.find_match_levenshtein(
+                            token_word, canonical)
+                    elif method == "1":  # levenshtein + soundex method
+                        candidates, is_match, best_match = engine.find_match_levenshtein_soundex(
+                            token_word, canonical)
+                    else:  # levenshtein + metaphone method
+                        candidates, is_match, best_match = engine.find_match_levenshtein_metaphone(
+                            token_word, canonical)
 
-                result = {
-                    'token': token_word,
-                    'candidates': candidates,
-                    'canonical': canonical,
-                    'is_correct': is_match,
-                    'best_match': best_match
-                }
+                    result = {
+                        'token': token_word,
+                        'candidates': candidates,
+                        'canonical': canonical,
+                        'is_correct': is_match,
+                        'best_match': best_match
+                    }
 
-                results.append(result)
-                print(result)
+                    results.append(result)
+                    print(result)
             except Exception:
                 continue
 
