@@ -1,0 +1,192 @@
+% \documentclass[journal,comsoc]{IEEEtran}
+\documentclass[11pt]{article}
+\usepackage{colacl}
+
+\usepackage[T1]{fontenc}
+% *** MATH PACKAGES ***
+
+\usepackage{amsmath}
+
+\usepackage{graphicx}
+\graphicspath{ {/} }
+\usepackage{float} %required for the placement specifier H
+
+
+\usepackage[
+backend=biber,
+style=ieee,
+sorting=ynt
+]{biblatex}
+\addbibresource{reference.bib}
+% Also, note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/pkg/amsmath
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/url
+% Basically, \url{my_url_here}.
+
+
+% correct bad hyphenation here
+
+\begin{document}
+%
+% paper title
+\title{Lexical Twitter Normalisation}
+%
+%
+\author{Martin~Valentino\\825178}
+        
+
+% The paper headers
+\markboth{COMP90049 - Knowledge Technologies, Semester 1, 2017}%
+{Shell}
+
+\maketitle
+
+\section{Introduction}
+The nature of Twitter with only allow its user put 140 characters of text make people who use it shortened the message. Because of that, Twitter text typically contains a word that is a misspelling or can be in a shorter form of its original word. Lexical normalisation \cite{LexicalNormalisation} is a process to transform individual words (token) from twitter text to its original form that comes from a dictionary of words. This report summarises the knowledge gained from implementing a prediction based system that tries to predict the canonical form of the words from twitter text using various approximate string matching algorithm.
+
+The analysis approach used in the report is similar to spell correction system. For example, word pix The main algorithm utilised in the system is global edit distance, specifically Levenshtein distance. The analysis will compare the prediction results for using only Levenshtein distance, combination Levenshtein distance and Soundex algorithm and lastly combination Levenshtein distance and Metaphone algorithm.
+
+This report will be organised as follows. Next section will discuss the dataset used for this study. The methodology section will explain the way the author builds a prediction system. The third section discusses the normalisation process this study implemented in the prediction system. The fourth section will discuss the evaluation of three methods used in the system. Lastly a conclusion from this overall study.
+
+\section{Dataset}
+This study uses dataset provided by Bo Han and Timothy Baldwin in their study \cite{TwitterDataset}. The dataset comprises of 8841 tokens drawn from twitter text with a structure of initial token from twitter text, token code and canonical form of the token. Token category specifies whether the token exists in a dictionary (IV - In Vocabulary) or not (OOV - Out Of Vocabulary). The canonical form is the normalised version of the token. The system will apply the operation into a token that is in OOV category that will apply for all of the tokens to compare the results.
+
+In addition, another dataset of 466544 English words\footnote{The dataset was taken from https://github.com/dwyl/english-words} was also used, from which the system will apply the string matching algorithm to find the original word form.
+
+\section{Evaluation Metrics}
+The following metrics will be used to evaluate the results from each of the methods implemented in the system:
+\begin{itemize}
+    \item Precision: Evaluate the results by the number of correct prediction in correlation to a number prediction made
+    \item Recall: Evaluate the results by the number of correct prediction in correlation to the whole datasets.
+\end{itemize}
+In case of multiple predictions result, the average and a maximum number of predictions also given in the evaluation results. All of the testing results are done on the same dataset of 500 OOV tokens to make the runtime quicker and avoid over-fitting the system.
+
+\section{Methodology}
+\subsection{Global Edit Distance}
+This study implements Global Edit Distance (GED) as a main method for string matching. The token is compared with a dictionary (words.txt) to construct a set of initial predictions by calculating the Levenshtein distance between the token and the words in the dictionary.
+
+Levenshtein distance\footnotemark is a string matching algorithm for calculating the distance between two sequences. It is defined as the minimum number of single character edits (insertion, deletion, substitution) required to change one word into the other. The prediction system finds the nearest match for a token in the dictionary within 2 (inclusive) Levenshtein distance. The prediction results can be more than one value, and not all of the results can exactly match the canonical form that is known from the dataset. The next section explains another method that is implemented in the system by combining Levenshtein distance with phonetic string matching
+
+\subsection{Phonetic Matching}
+Phonetic matching algorithms are the algorithm that is used to match two different words by comparing and index words that are phonetically similar. This study combining Levenshtein distance method with Soundex\footnotemark[\value{footnote}] \cite{PhoneticStringMatching,JellyFish} and Metaphone\footnotemark[\value{footnote}] \cite{Metaphone,JellyFish}. Soundex uses code based on the pronunciation of each letter to translate a word into its canonical form. Metaphone is an improvement of Soundex algorithm by adding variations and deviations in English spelling and pronunciation to construct a more precise encoding.
+
+\footnotetext{Imported from the jellyfish Python library}
+
+\section{Normalisation Process}
+As described previously in the introduction, this study compares three methods to normalise the token. Three methods use in this study are:
+\begin{itemize}
+    \item Normalisation only by calculating the levenshtein distance
+    \item Normalisation by combining levenshtein distance and soundex algorithm
+    \item Normalisation by combining levenshtein distance and metaphone algorithm
+\end{itemize}
+
+
+\subsection{Levenshtein Distance}
+The first method used in the system finds a match for a token against dictionary by calculating the Levenshtein distance of maximum 2 (inclusive). For some token, this method will give a very long list of possible matches. The result is summarised in table \ref{table:1}. 
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|l||r|}
+    \hline
+        Precision & 0.00607 \\
+    \hline
+        Recall & 0.269 \\
+    \hline
+        Avg. Predictions & 46.017 \\
+    \hline
+        Max. Predictions & 364 \\
+    \hline
+    \end{tabular}
+    \caption{Results of Levenshtein matching implementation}
+    \label{table:1}
+\end{table}
+
+As can be seen from above table, the system precision is extremely low. Even though it has a relatively good recall, but for each correct guess in average generates 46 predictions for each token. Some samples of the estimation from this method can be seen from Figure \ref{fig:1}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.4]{levenshtein_result.png}
+    \caption{Samples prediction for Levenshtein only system}
+    \label{fig:1}
+\end{figure}
+
+\subsection{Levenshtein Distance with Phonetic Matching}
+The next step in this experiment is to implement the phonetic matching algorithm to get a better prediction result. First, the system constructs a set of predictions with Levenshtein distance 2. Then the Soundex / Metaphone algorithm is used to find a match for a token against a set from a Levenshtein distance. Similar to the previous method, once the system returns prediction results, it is evaluated against the canonical form to determine the correctness of the predictions.
+
+The results for both the Soundex and Metaphone implementation are shown below.
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l||r|}
+    \hline
+        Precision & 0.0516 \\
+    \hline
+        Recall & 0.209 \\
+    \hline
+        Avg. Predictions & 4.45 \\
+    \hline
+        Max. Predictions & 32 \\
+    \hline
+    \end{tabular}
+    \caption{Results of Levenshtein + Soundex matching implementation}
+    \label{table:2}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l||r|}
+    \hline
+        Precision & 0.0559 \\
+    \hline
+        Recall & 0.179 \\
+    \hline
+        Avg. Predictions & 3.76 \\
+    \hline
+        Max. Predictions & 22 \\
+    \hline
+    \end{tabular}
+    \caption{Results of Levenshtein + Metaphone matching implementation}
+    \label{table:1}
+\end{table}
+
+As can be seen from above tables, the implementation of phonetic matching significantly improve the precision of the results. To be able to understand the results more, two figures below can be a comparison to see the different results of comparison between the two phonetic matching algorithm and the previous method result (only using Levenshtein). The system with Soundex/Metaphone significantly reduce the number of prediction, there is even a direct match to the canonical form.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.4]{Levenshtein_soundex.png}
+    \caption{Samples prediction for Levenshtein + Soundex system}
+    \label{fig:2}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.4]{levenshtein_metaphone.png}
+    \caption{Samples prediction for Levenshtein + Metaphone system}
+    \label{fig:3}
+\end{figure}
+
+The overall comparison between the three methods can be seen from Figures \ref{fig:4}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.4]{Algorithm_Compare_1.png}
+    \caption{Comparison of three methods in the system}
+    \label{fig:4}
+\end{figure}
+
+
+\section{Conclusion}
+The lexical normalisation of twitter text process is a particularly challenging task. It is mainly because some of the words from twitter message can have different meaning depends on the context of the user. This study tries to implement various types of string matching algorithm to normalise the incorrect token from twitter text into its canonical form. The prediction system for this experiment is built on top of Levenshtein distance algorithm and combining the result with a phonetic matching algorithm. Overall, the observation shows combining phonetic algorithm with GED give better predictions with higher precision compared to just use a Levenshtein distance. The next step to improve the predictions would be to add another step in the system, either by implement n-gram metrics or find another more effective alternative.
+
+\printbibliography
+
+\end{document}

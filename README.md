@@ -77,3 +77,4 @@ The author use jupyter notebook to do the analysis. We need to firstly run the n
 $ workon lexical-twitter
 $ jupyter notebook
 ```
+Run each line in the notebook to see the analysis process
