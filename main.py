@@ -7,10 +7,10 @@ import io
 from match_engine import MatchEngine
 
 
+
 def dump_to(data, file_name):
     with open(file_name, 'w') as fout:
         json.dump(data, fout)
-
 
 def main(args, loglevel):
     logging.basicConfig(format="%(levelname)s: %(message)s", level=loglevel)
